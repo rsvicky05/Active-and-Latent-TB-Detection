@@ -1,0 +1,12 @@
+tb_env
+dataset/
+TB Dataset/
+database/
+__pycache__/
+.env
+static/uploads/
+static/heatmaps/
+static/*.jpg
+static/*.png
+static/*.mp4
+*.pth

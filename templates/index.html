@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TB Multimodal Detection</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 40px;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            margin: auto;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 8px;
+            margin: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Multimodal TB Detection System</h2>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+
+        <label>Upload Chest X-ray:</label><br>
+        <input type="file" name="image" required><br>
+
+        <label>CBC:</label><br>
+        <input type="number" step="any" name="cbc" required><br>
+
+        <label>ESR:</label><br>
+        <input type="number" step="any" name="esr" required><br>
+
+        <label>CRP:</label><br>
+        <input type="number" step="any" name="crp" required><br>
+
+        <label>Patient History:</label><br>
+        <textarea name="history" rows="4" required></textarea><br>
+
+        <button type="submit">Predict</button>
+
+    </form>
+
+</body>
+</html>

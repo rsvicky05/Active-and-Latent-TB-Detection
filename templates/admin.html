@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* CSS Variables for the Color Palette from the Image */
+:root {
+    --teal-dark: #0B876E;
+    --teal-mid: #389FA4;
+    --teal-light: #D0EBF4;
+    --orange-accent: #EF761B;
+    --bg-color: #f4f9f9;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-color);
+    margin: 0;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(239, 118, 27, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 118, 27, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 118, 27, 0); }
+}
+
+/* Header Styling */
+.header {
+    background: var(--teal-dark);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(11, 135, 110, 0.2);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.header div:first-child {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Button Styling with Animation */
+.logout {
+    color: white;
+    text-decoration: none;
+    background: var(--orange-accent);
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.logout:hover {
+    background: #d66515; /* slightly darker orange */
+    transform: translateY(-2px);
+    animation: pulseGlow 1.5s infinite;
+}
+
+/* Main Container */
+.container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card Styling */
+.card {
+    background: white;
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(11, 135, 110, 0.08);
+    width: 280px;
+    border-left: 6px solid var(--orange-accent);
+    animation: fadeInUp 0.8s ease-out 0.2s both; /* Delayed animation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(11, 135, 110, 0.15);
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    color: var(--teal-mid);
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.card h2 {
+    margin: 0;
+    color: var(--teal-dark);
+    font-size: 42px;
+}
+
+/* Table Section Elements */
+.container > h3 {
+    color: var(--teal-dark);
+    font-size: 22px;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Premium Table Styling */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(11, 135, 110, 0.08);
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+th, td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--teal-light);
+}
+
+th {
+    background: var(--teal-mid);
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+tr {
+    transition: all 0.3s ease;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Table Row Hover Animation */
+tr:hover td {
+    background-color: var(--teal-light);
+    color: var(--teal-dark);
+    transform: scale(1.005);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>Admin Panel</div>
+    <div>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h3>Total Registered Users</h3>
+        <h2>{{user_count}}</h2>
+    </div>
+
+    <h3>Patient Prediction History</h3>
+
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Patient Name</th>
+            <th>Age</th>
+            <th>CBC</th>
+            <th>ESR</th>
+            <th>CRP</th>
+            <th>Result</th>
+            <th>Date</th>
+        </tr>
+
+        {% for row in history %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+            <td>{{row[6]}}</td>
+            <td>{{row[7]}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>

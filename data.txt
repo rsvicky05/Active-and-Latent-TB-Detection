@@ -1,0 +1,9 @@
+CBC = 8000
+ESR = 10
+CRP = 2
+History = Normal
+
+CBC = 15000
+ESR = 60
+CRP = 30
+History = Persistent cough, fever, weight loss

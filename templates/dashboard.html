@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TB Detection Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* Color Palette */
+:root {
+    --teal-dark: #0B876E;
+    --teal-mid: #389FA4;
+    --teal-light: #D0EBF4;
+    --orange-accent: #EF761B;
+    --bg-color: #f4f9f9;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-color);
+    margin: 0;
+    color: #333;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(239, 118, 27, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 118, 27, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 118, 27, 0); }
+}
+
+/* Header Styling */
+.header {
+    background: var(--teal-dark);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(11, 135, 110, 0.2);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.header div:first-child {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Logout Button */
+.logout {
+    color: white;
+    text-decoration: none;
+    background: var(--orange-accent);
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.logout:hover {
+    background: #d66515;
+    transform: translateY(-2px);
+    animation: pulseGlow 1.5s infinite;
+}
+
+/* Form Container */
+.container {
+    width: 100%;
+    max-width: 550px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(11, 135, 110, 0.08);
+    border-top: 6px solid var(--teal-mid);
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    color: var(--teal-dark);
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Input Fields Styling */
+input[type="text"],
+input[type="number"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0 20px 0;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+/* Input Focus Animation */
+input:focus,
+textarea:focus {
+    border-color: var(--teal-mid);
+    background: white;
+    outline: none;
+    box-shadow: 0 0 10px rgba(56, 159, 164, 0.15);
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--teal-dark);
+    margin-bottom: 5px;
+    display: block;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Custom File Input Styling */
+input[type="file"] {
+    padding: 10px;
+    background: var(--teal-light);
+    border: 1.5px dashed var(--teal-mid);
+    cursor: pointer;
+    color: var(--teal-dark);
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 14px;
+    background: var(--teal-dark);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background: var(--teal-mid);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(11, 135, 110, 0.25);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>
+        Welcome {{name}}
+    </div>
+    <div>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Multimodal TB Detection System</h2>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+
+        <input type="text" name="patient_name" placeholder="Patient Name" required>
+
+        <div style="display: flex; gap: 15px;">
+            <input type="number" name="age" placeholder="Age" required>
+            <input type="text" name="blood_group" placeholder="Blood Group" required>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <input type="number" name="height" placeholder="Height (cm)" required>
+            <input type="number" name="weight" placeholder="Weight (kg)" required>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <input type="number" name="cbc" placeholder="CBC Value" required>
+            <input type="number" name="esr" placeholder="ESR Value" required>
+            <input type="number" name="crp" placeholder="CRP Value" required>
+        </div>
+
+        <label>Patient History</label>
+        <textarea name="history" placeholder="Enter symptoms or medical history (e.g., cough, fever, weight loss)" rows="3"></textarea>
+
+        <label>Upload X-Ray / Scan Image</label>
+        <input type="file" name="image" required>
+
+        <button type="submit">Predict</button>
+
+    </form>
+</div>
+
+</body>
+</html>

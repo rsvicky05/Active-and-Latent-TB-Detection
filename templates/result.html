@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Color Palette */
+:root {
+    --teal-dark: #0B876E;
+    --teal-mid: #389FA4;
+    --teal-light: #D0EBF4;
+    --orange-accent: #EF761B;
+    --bg-color: #f4f9f9;
+}
+
+body {
+    background: var(--bg-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(11, 135, 110, 0.08);
+    border-top: 6px solid var(--teal-dark);
+    animation: fadeInUp 0.8s ease-out;
+    text-align: center;
+}
+
+h2.main-title {
+    color: var(--teal-dark);
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* Stats Grid Styling */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.stat-card {
+    background: #fafafa;
+    border: 1px solid var(--teal-light);
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(11, 135, 110, 0.1);
+    border-color: var(--teal-mid);
+}
+
+.stat-card p.label {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.stat-card p.value {
+    margin: 5px 0 0 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--teal-dark);
+}
+
+/* Highlight specifically the Status/Risk values */
+.stat-card.risk p.value {
+    color: var(--orange-accent);
+}
+
+/* Explanation Box */
+.explanation-section {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+    margin-bottom: 30px;
+}
+
+.explanation-section h3 {
+    color: var(--teal-mid);
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.explanation-box {
+    background: var(--teal-light);
+    border-left: 4px solid var(--orange-accent);
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+    text-align: left;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+/* Image Section */
+.image-section {
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+    margin-bottom: 30px;
+}
+
+.image-section h2 {
+    color: var(--teal-dark);
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.image-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 3px solid var(--teal-light);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.image-section img:hover {
+    transform: scale(1.02);
+}
+
+/* Button Styling */
+.btn-back {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--teal-dark);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.btn-back:hover {
+    background: var(--teal-mid);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(11, 135, 110, 0.25);
+}
+
+/* Responsive Grid for mobile */
+@media (max-width: 500px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2 class="main-title">TB Prediction Result</h2>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <p class="label">Status</p>
+            <p class="value">{{ tb_status }}</p>
+        </div>
+        <div class="stat-card">
+            <p class="label">Type</p>
+            <p class="value">{{ tb_type }}</p>
+        </div>
+        <div class="stat-card risk">
+            <p class="label">Risk Score</p>
+            <p class="value">{{ risk_score }}</p>
+        </div>
+        <div class="stat-card">
+            <p class="label">Attention Score</p>
+            <p class="value">{{ attention_score }}</p>
+        </div>
+    </div>
+
+    <div class="explanation-section">
+        <h3>Medical Explanation</h3>
+        <div class="explanation-box">
+            {{ explanation }}
+        </div>
+    </div>
+
+    <div class="image-section">
+        <h2>Grad-CAM Visualization</h2>
+        <img src="{{ url_for('static', filename=heatmap) }}" alt="Grad-CAM Heatmap">
+
+    </div>
+
+<a href="/download_report?
+patient_name={{request.form.patient_name}}
+&age={{request.form.age}}
+&blood_group={{request.form.blood_group}}
+&tb_status={{tb_status}}
+&tb_type={{tb_type}}
+&explanation={{explanation}}
+&heatmap={{heatmap}}">
+
+<button style="
+padding:12px 25px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+margin-top:20px;
+">
+Download Report (PDF)
+</button>
+
+</a>
+
+
+    <a href="/" class="btn-back">Go Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

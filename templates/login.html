@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TB System Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* Color Palette */
+:root {
+    --teal-dark: #0B876E;
+    --teal-mid: #389FA4;
+    --teal-light: #D0EBF4;
+    --orange-accent: #EF761B;
+    --bg-color: #f4f9f9;
+}
+
+body {
+    background: var(--bg-color);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(11, 135, 110, 0.08);
+    border-top: 6px solid var(--teal-dark);
+    animation: fadeInUp 0.8s ease-out;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: var(--teal-dark);
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* Form & Input Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+/* Input Focus Animation */
+input:focus {
+    border-color: var(--teal-mid);
+    background: white;
+    outline: none;
+    box-shadow: 0 0 10px rgba(56, 159, 164, 0.15);
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 14px;
+    background: var(--teal-dark);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: var(--teal-mid);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(11, 135, 110, 0.25);
+}
+
+/* Link Styling */
+a {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--teal-mid);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--orange-accent);
+    transform: translateY(-2px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Welcome Back</h2>
+
+    <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <a href="/register">Create New Account</a>
+
+</div>
+
+</body>
+</html>
